@@ -95,7 +95,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.mypackage.MyClass</mainClass>
+                            <mainClass>catimageshop.productcatalog.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
