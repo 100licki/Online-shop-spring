@@ -1,7 +1,6 @@
 package catimageshop.productcatalog;
 
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Data
