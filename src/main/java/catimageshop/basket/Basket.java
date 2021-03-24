@@ -3,14 +3,15 @@ package catimageshop.basket;
 import catimageshop.productcatalog.Product;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Basket {
-    private final HashMap<String, Product> products;
-    private final HashMap<String, Integer> productQuantities;
+    private final Map<String, Product> products;
+    private final Map<String, Integer> productsQuantities;
 
     public Basket() {
         products = new HashMap<>();
-        productQuantities = new HashMap<>();
+        productsQuantities = new HashMap<>();
     }
 
     public boolean isEmpty() {
@@ -22,17 +23,22 @@ public class Basket {
     }
 
     public void add(Product product) {
-        if(product.getStock()<=0) throw new NotEnoughQuantityException();
-        if(!isInBasket(product)) products.put(product.getId(), product);
+        if (product.getStock() <= 0) throw new NotEnoughQuantityException();
+        if (!isInBasket(product)) putIntoBasket(product);
         else increaseProductQuantity(product);
     }
 
+    private void putIntoBasket(Product product) {
+        products.put(product.getId(), product);
+        productsQuantities.put(product.getId(), 1);
+    }
+
     private void increaseProductQuantity(Product product) {
-        productQuantities.put(product.getId(), productQuantities.get(product.getId() +1));
+        productsQuantities.put(product.getId(), productsQuantities.get(product.getId()) + 1);
     }
 
     private boolean isInBasket(Product product) {
-        return productQuantities.containsKey(product.getId());
+        return productsQuantities.containsKey(product.getId());
     }
 
     public void delete(Product product) {
@@ -41,5 +47,9 @@ public class Basket {
 
     public Integer getDifferentProductsQuantities() {
         return products.size();
+    }
+
+    public Integer getCertainProductQuantity(Product product) {
+        return this.productsQuantities.get(product.getId());
     }
 }
