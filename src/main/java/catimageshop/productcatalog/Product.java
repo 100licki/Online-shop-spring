@@ -1,6 +1,7 @@
 package catimageshop.productcatalog;
 
 import lombok.Data;
+
 import javax.persistence.*;
 
 @Data
@@ -22,12 +23,20 @@ public class Product {
     @Column(name = "photo")
     private String photo;
 
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "stock")
+    private Integer stock;
+
     public Product() {
     }
 
-    public Product(String name, String description, String photo) {
+    public Product(String name, String description, String photo, Double price, Integer stock) {
         this.name = name;
         this.description = description;
         this.photo = photo;
+        this.price = price;
+        this.stock = stock;
     }
 }

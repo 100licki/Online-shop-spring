@@ -1,4 +1,4 @@
-package catimageshop.Customer;
+package catimageshop.customercatalog;
 
 import lombok.Data;
 import javax.persistence.*;
