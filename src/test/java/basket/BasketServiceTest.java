@@ -1,24 +1,36 @@
 package basket;
 
 import catimageshop.basket.Basket;
+import catimageshop.basket.BasketService;
 import catimageshop.basket.NotEnoughQuantityException;
 import catimageshop.productcatalog.Product;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BasketTest {
+public class BasketServiceTest {
 
     public static final String PRODUCT_1_NAME = "TEST_NAME_PRODUCT_1";
-    public static final String PRODUCT_1_ID = "1";
+    public static final Long PRODUCT_1_ID = 1L;
     public static final Integer PRODUCT_1_STOCK = 2;
     private static final Integer ZERO_STOCK_PRODUCT = 0;
 
+    private BasketService basketService;
+
+    @Before
+    public void initEach() {
+        basketService = new BasketService();
+    }
+
     @Test
     public void createEmptyBasketTest() {
-        Basket basket = Basket.empty();
-        assertThat(basket.isEmpty()).isTrue();
+        Basket basket = new Basket();
+        assertThat(basketService.isEmpty(basket)).isTrue();
     }
 
     @Test
@@ -27,9 +39,9 @@ public class BasketTest {
         Basket basket = new Basket();
         Product product = createProduct();
         //Act
-        basket.add(product);
+        basketService.add(product, basket);
         //Assert
-        assertThat(basket.isEmpty()).isFalse();
+        assertThat(basketService.isEmpty(basket)).isFalse();
     }
 
     @Test
@@ -39,7 +51,7 @@ public class BasketTest {
         Product productWithZeroStock = createProductWithZeroStock();
         //Act
         Exception exception = assertThrows(NotEnoughQuantityException.class,
-                () -> basket.add(productWithZeroStock));
+                () -> basketService.add(productWithZeroStock, basket));
         //Assert
         assertTrue((exception.getMessage()).contains("Not enough products in stock"));
     }
@@ -49,11 +61,11 @@ public class BasketTest {
         //Arrange
         Basket basket = new Basket();
         Product product = createProduct();
-        basket.add(product);
+        basketService.add(product, basket);
         //Act
-        basket.delete(product);
+        basketService.delete(product, basket);
         //Assert
-        assertThat(basket.isEmpty()).isTrue();
+        assertThat(basketService.isEmpty(basket)).isTrue();
     }
 
     @Test
@@ -62,11 +74,11 @@ public class BasketTest {
         Basket basket = new Basket();
         Product product1 = createProduct();
         //Act
-        basket.add(product1);
-        basket.add(product1);
+        basketService.add(product1, basket);
+        basketService.add(product1, basket);
         //Assert
-        assertEquals(basket.getDifferentProductsQuantities(), 1);
-        assertEquals(basket.getCertainProductQuantity(product1), 2);
+        assertEquals(basketService.getDifferentProductsQuantities(basket), 1);
+        assertEquals(basketService.getCertainProductQuantity(product1, basket), 2);
     }
 
     private Product createProduct() {
