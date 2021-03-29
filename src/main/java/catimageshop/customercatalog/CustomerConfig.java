@@ -15,14 +15,14 @@ public class CustomerConfig {
     CommandLineRunner commandLineRunner(CustomerRepository repository) {
         return args -> {
            Customer nig = new Customer(
-                   "nig",
-                   "ger@mail.com",
+                   "aaa",
+                   "bbb@mail.com",
                    LocalDate.of(2000, Month.MAY, 22)
            );
 
             Customer bla = new Customer(
                     "bla",
-                    "ck@mail.com",
+                    "aaaa@mail.com",
                     LocalDate.of(2001, Month.MAY, 22)
             );
 
