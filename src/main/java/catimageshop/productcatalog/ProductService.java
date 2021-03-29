@@ -19,7 +19,7 @@ public class ProductService {
         return products;
     }
 
-    public Optional<Product> getProduct(String id) {
+    public Optional<Product> getProduct(Long id) {
         return productRepository.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public void deleteProduct(String id) {
+    public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
 }

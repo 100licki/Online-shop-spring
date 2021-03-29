@@ -14,3 +14,28 @@ spring:
     console:
       enabled: true
       path: /h2
+  mail:
+    host: localhost
+    port: 1025
+    username: hello
+    password: hello
+
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 1079062686228-r6f48aqib8t2n39gu0s25518fr4lbd2l.apps.googleusercontent.com
+            client-secret: r-IMvxtzNof2x9v7WwqThrzR #hard coded app secret - educational purposes
